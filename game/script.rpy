@@ -4,60 +4,110 @@ image pink = "#ec1ef3"
 # podemos definir os personagens como variáveis
 # isso pode facilitar a escrita
 define g = Character('Crowly Redraven', color="#789DBC")
-define p1 = Character("[nome]", color="#F6EFBD")
-define p2 = Character("[nome]", color="#F6EFBD")
-define p3 = Character("[nome]", color="#F6EFBD")
+define p = Character("[nome]", color="#F6EFBD")
 define pri = Character('principe',color="#e7d93c")
 define pro = Character('Kea Evenwood',color="#f04b69")
+
+# imagens dos personagens ~~~~~~
+image Personagem1:
+    "personagem 1"
+    zoom 0.433
+
+image Personagem2:
+    "personagem 2"
+    zoom 0.75
+
+image Personagem3:
+    "personagem 3 2"
+    zoom 0.64
+
+# imagens dos fundos ~~~~~~~~~~~
+image BgCastelo:
+    "bg castelo"
+    zoom 4
+
+screen escolha_personagem:
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos 0.27
+        ypos 0.5
+        idle "Personagem1"
+        action Jump("prota_1")
+
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos 0.5
+        ypos 0.5
+        idle "Personagem2"
+        action Jump("prota_1")
+
+    imagebutton:
+        xanchor 0.5
+        yanchor 0.5
+        xpos 0.75
+        ypos 0.5
+        idle "Personagem3"
+        action Jump("prota_1")
 
 # label: dá o nome a um lugar do programa
 # label start: é o que roda quando o jogador inicia o jogo
 label start:
     scene pink
-    
-    $ nome = renpy.input("Qual é o seu nome?")
-
-    scene bg castelo
-    # scene: limpa todas as imagens e mostra a imagem de fundo
-    # bg castelo: nome da imagem na pasta images
-
-    show guarda
-    # show: comando para exibir alguma imagem
-    # guarda: nome da imagem que está na pasta images
-
-    g "Quem esta ai?! Quem é você?!"
-    # g: nome da variável do personagem que está falando
-        # podemos digitar uma string também, entre aspas
-    # "Oi, eu sou o guarda": fala do personagem
-
-    hide guarda
-    # hide: esconde a imagem
-    with fade
-    # transição para esconder a imagem
-
-    show protagonista
-
-    p1 "Oi, eu sou protagonista"
-
-    hide protagonista
-    with fade
-    
-    show protagonista
-
-    "Escolha uma opcao"
 
     menu:
-        # comando que representa uma escolha do jogador
-        "Opcao boa": # primeira opcção
-            jump opcao_boa
-            # jump: após essa escolha, pula para outra parte
+        "proceso de criacao":
+            jump criacao
+        "jogar":
 
-        "Opcao ruim": # segunda opção
-            jump opcao_ruim
+
+    call screen escolha_personagem
+    
+    label prota_1:
+        $ nome = renpy.input("Qual é o seu nome?")
+
+        scene BgCastelo
+        # scene: limpa todas as imagens e mostra a imagem de fundo
+        # bg castelo: nome da imagem na pasta images
+
+        show guarda
+        # show: comando para exibir alguma imagem
+        # guarda: nome da imagem que está na pasta images
+
+        g "Quem esta ai?! Quem é você?!"
+        # g: nome da variável do personagem que está falando
+            # podemos digitar uma string também, entre aspas
+        # "Oi, eu sou o guarda": fala do personagem
+
+        hide guarda
+        # hide: esconde a imagem
+        with fade
+        # transição para esconder a imagem
+
+        show protagonista
+
+        p "Oi, eu sou protagonista"
+
+        hide protagonista
+        with fade
+        
+        show protagonista
+
+        "Escolha uma das proximas opições"
+
+        menu:
+            # comando que representa uma escolha do jogador
+            "foge para o jardim": # primeira opcção
+                jump opcao_1
+                # jump: após essa escolha, pula para outra parte
+
+            "esperar o guarda": # segunda opção
+                jump opcao_2
     
     label opcao_2:
         # vai para a opção escolhida
-        p1 "esperar"
+        p "esperar"
         g""
         p""
         menu:
@@ -74,20 +124,35 @@ label start:
                         #dialogo
                         scene
                         jump fim_guarda
+            "coperar":
+                scene
+                p""
+                #dialogo
+                menu:
+                    "continuar coperando":
+                        scene
+                        #dialogo
+                        jump fim_principe
+                    "arrogante":
+                        scene
+                        #dialogo
+                        jump final_prometida
+
     label opcao_1:
-        p1 "esconder"
+        p "foge jardim"
         menu:
-            "opicao-fugir":
+            "fugir do castelo":
                 show guarda
                 g "DIALOG"
                 jump fim_comum
-            "opicao-falar com ela":
+            "falar com a moça":
                 pro "dialogo"
                 p "g"
                 pro"d"
                 scene ycfg 
                 pri "feitico"
                 scene kjjhj
+                jump final_prometida
                 menu:
                     "opicao-mentira":
                         p "d" 
@@ -98,29 +163,30 @@ label start:
                         pro ""
                         #mais dialogo
                         jump final_prometida
-
-               
-                
-
-
-
-                
         jump fim_comum
     
     label fim_comum:
-        "Cabou!! :D"
-    
+        scene
+        "GAME OVER! :D"
+        "VOCÊ MORREU"
+        return
+    label criacao:
+        scene
+        return
     label final_prometida:
         scene
         ""
         #narador dialoge gigant
+        return
     label fim_principe:
         scene
         ""
         #dialogo infinito
+        return
     label fim_guarda:
         scene
         ""
         #dialogo infinito
+        return
     return
     # termina o jogo
