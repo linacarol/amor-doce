@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 20: 'zoom' is not a keyword argument or valid child of the imagebutton statement.
-    zoom 0.5
-        ^
+File "game/script.rpy", line 28: Line is indented, but the preceding ATL statement does not expect a block. Please check this line's indentation. You may have forgotten a colon (:).
+    "personagem 1"
+    ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Mon Nov 11 20:26:12 2024
+Sun Nov 24 12:10:39 2024

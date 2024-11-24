@@ -1,4 +1,6 @@
 ﻿define nome = ""
+define escolha = ""
+define prota = ""
 image pink = "#ec1ef3"
 
 # podemos definir os personagens como variáveis
@@ -21,6 +23,9 @@ image Personagem3:
     "personagem 3 2"
     zoom 0.64
 
+image Prota:
+    "personagem [escolha]"
+
 # imagens dos fundos ~~~~~~~~~~~
 image BgCastelo:
     "bg castelo"
@@ -33,7 +38,7 @@ screen escolha_personagem:
         xpos 0.27
         ypos 0.5
         idle "Personagem1"
-        action Jump("prota_1")
+        action [SetVariable("escolha", "1"), Jump("inicio")]
 
     imagebutton:
         xanchor 0.5
@@ -41,7 +46,7 @@ screen escolha_personagem:
         xpos 0.5
         ypos 0.5
         idle "Personagem2"
-        action Jump("prota_1")
+        action [SetVariable("escolha", "2"), Jump("inicio")]
 
     imagebutton:
         xanchor 0.5
@@ -49,22 +54,22 @@ screen escolha_personagem:
         xpos 0.75
         ypos 0.5
         idle "Personagem3"
-        action Jump("prota_1")
+        action [SetVariable("escolha", "3 2"), Jump("inicio")]
 
 # label: dá o nome a um lugar do programa
 # label start: é o que roda quando o jogador inicia o jogo
 label start:
     scene pink
 
-    menu:
-        "proceso de criacao":
-            jump criacao
-        "jogar":
-
+    # menu:
+    #     "proceso de criacao":
+    #         jump criacao
+    #     "jogar":
 
     call screen escolha_personagem
-    
-    label prota_1:
+
+    label inicio:
+
         $ nome = renpy.input("Qual é o seu nome?")
 
         scene BgCastelo
@@ -85,14 +90,14 @@ label start:
         with fade
         # transição para esconder a imagem
 
-        show protagonista
+        show Prota
 
         p "Oi, eu sou protagonista"
 
-        hide protagonista
+        hide Prota
         with fade
-        
-        show protagonista
+
+        show Prota
 
         "Escolha uma das proximas opições"
 
@@ -104,7 +109,7 @@ label start:
 
             "esperar o guarda": # segunda opção
                 jump opcao_2
-    
+
     label opcao_2:
         # vai para a opção escolhida
         p "esperar"
@@ -169,24 +174,59 @@ label start:
         scene
         "GAME OVER! :D"
         "VOCÊ MORREU"
+        jump creditos
         return
     label criacao:
         scene
+        jump creditos
         return
     label final_prometida:
         scene
         ""
         #narador dialoge gigant
+        jump creditos
         return
     label fim_principe:
         scene
         ""
+        jump creditos
         #dialogo infinito
         return
     label fim_guarda:
         scene
         ""
+        jump creditos
         #dialogo infinito
         return
     return
     # termina o jogo
+
+label creditos:
+    scene black
+    show screen cena_creditos
+    pause 100
+    hide screen cena_creditos
+    return
+
+screen cena_creditos:
+    vbox:
+        xsize 1000
+        ysize 5500
+        xalign 0.5
+        yalign 0.0
+        at transform:
+            subpixel True
+            easein 100:
+                yalign 1.0
+        vbox:
+            ysize 720
+            text ""
+            text "Titulo":
+                color "#ffffff"
+                size 100
+                xalign 0.5
+                bold True 
+            text "Nomes":
+                color "#ffffff"
+                size 50
+                xalign 0.5

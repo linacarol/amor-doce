@@ -12,7 +12,7 @@
 ##
 ## O _() ao redor da string a marca como elegível para tradução.
 
-define config.name = _("Projeto Ola Mundos")
+define config.name = _("Amor Doce")
 
 
 ## Determina se o título fornecido acima será mostrado na tela do menu
@@ -29,7 +29,7 @@ define config.version = "1.0"
 ## Texto que é colocado na tela "Sobre" do jogo. Coloque o texto entre aspas
 ## triplas e deixe uma linha em branco entre os parágrafos.
 
-define gui.about = _p("""
+define gui.about = _p("""Jogo realizado no Olá Mundos
 """)
 
 
